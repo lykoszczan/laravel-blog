@@ -5,7 +5,6 @@ namespace App\Repositories;
 use App\Interfaces\PostRepositoryInterface;
 use App\Models\Post;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
-use Illuminate\Support\Facades\Auth;
 
 class PostRepository implements PostRepositoryInterface
 {
@@ -29,7 +28,7 @@ class PostRepository implements PostRepositoryInterface
 
     public function create(array $details): Post
     {
-        $post = Auth::user()?->posts()->create($details);
+        $post = Post::create($details);
 
         if ($image = $details['thumbnail']) {
             $post->addMedia($image)->toMediaCollection('thumbnails');

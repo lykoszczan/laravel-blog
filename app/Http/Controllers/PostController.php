@@ -8,6 +8,7 @@ use App\Http\Requests\StorePostRequest;
 use App\Interfaces\PostRepositoryInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -26,6 +27,7 @@ class PostController extends Controller
             'title' => $request->title,
             'body' => $request->body,
             'thumbnail' => $request->thumbnail,
+            'author_id' => Auth::user()->id,
         ]);
 
         return response()->json([

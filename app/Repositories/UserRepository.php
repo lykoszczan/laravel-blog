@@ -40,7 +40,7 @@ class UserRepository implements UserRepositoryInterface
     public function setUserRoles(int $user_id, array $roles): void
     {
         $user = User::where('id', $user_id)->first();
-        $rolesModels = Role::find($roles);
+        $rolesModels = Role::findOrFail($roles);
 
         $user?->syncRoles(...$rolesModels);
     }
