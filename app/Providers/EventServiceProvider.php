@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Events\PasswordForgotten;
+use App\Listeners\SendResetPasswordMail;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -25,7 +27,13 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        Event::listen(
+            PasswordForgotten::class,
+            [
+                SendResetPasswordMail::class,
+                'handle',
+            ]
+        );
     }
 
     /**
